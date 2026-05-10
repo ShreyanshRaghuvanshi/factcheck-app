@@ -307,7 +307,7 @@ async function extractTextFromPDF(file) {
   });
 }
 
-// ── Anthropic API call ────────────────────────────────────────────────────────
+// ── AI API call ────────────────────────────────────────────────────────
 async function factCheckWithClaude(pdfText, apiKey) {
   const systemPrompt = `You are a rigorous fact-checking agent. A user has uploaded a PDF document. Your job is to:
 1. Extract every specific, verifiable claim from the text (statistics, dates, financial figures, technical assertions, named facts).
@@ -329,12 +329,12 @@ Rules:
 - Extract 5-12 claims. Prioritize numbers, dates, and named facts over opinions.
 - If the document is very short or has no verifiable claims, still return at least 3 entries noting what is or isn't verifiable.`;
 
-  const response = await fetch("https://api.anthropic.com/v1/messages", {
+  const response = await fetch("https://api.AI.com/v1/messages", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       "x-api-key": apiKey,
-      "anthropic-version": "2023-06-01",
+      "AI-version": "2023-06-01",
     },
     body: JSON.stringify({
       model: "claude-opus-4-5",
@@ -389,7 +389,7 @@ export default function FactCheckApp() {
 
   const runCheck = async () => {
     if (!file) return;
-    if (!apiKey.trim()) { setError("Please enter your Anthropic API key."); return; }
+    if (!apiKey.trim()) { setError("Please enter your AI API key."); return; }
     setError(""); setResults([]); setStep(1);
 
     try {
@@ -456,7 +456,7 @@ export default function FactCheckApp() {
 
         {/* API Key */}
         <div className="api-note">
-          ⚡ ANTHROPIC API KEY REQUIRED — Your key is never stored. Used only for
+          ⚡ AI API KEY REQUIRED — Your key is never stored. Used only for
           this session.
         </div>
         <input
